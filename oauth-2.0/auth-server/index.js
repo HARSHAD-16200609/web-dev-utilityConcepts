@@ -2,6 +2,7 @@ import express from "express";
 import session from "express-session";
 import passport from "passport";
 import dotenv from "dotenv";
+import "./auth/google.js"; // Import passport Google strategy configuration
 
 
 dotenv.config();
@@ -39,12 +40,12 @@ app.get('/auth/google/success',(req,res)=>{
 return res.redirect('/')
     }
     
-    console.log(user);
-    console.log(req.user.displayName());
+    console.log(req.user);
+    console.log(req.user.displayName);
     
     
     res.send(`<a href="https://upload.wikimedia.org/wikipedia/en/4/4c/GokumangaToriyama.png">profileimg</a>
-        <a hre="/logout">Logout</h1>`)
+        <a href="/logout">Logout</h1>`)
 })
 
 
