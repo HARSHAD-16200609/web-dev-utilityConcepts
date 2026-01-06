@@ -38,17 +38,22 @@ app.get( '/auth/google/callback',
         failureRedirect: '/auth/google/failure'
 }));
 
-app.get('/auth/google/success',(req,res)=>{
-    if(!req.isAuthenticated()){
-return res.redirect('/')
+
+const authChecker=(req,res,next)=>{
+     if(req.isAuthenticated()){
+return   next();
     }
-    
-    console.log(req.user);
-    console.log(req.user.displayName);
-    
-    
-    res.send(`<a href="https://upload.wikimedia.org/wikipedia/en/4/4c/GokumangaToriyama.png">profileimg</a>
-        <a href="/logout">Logout</h1>`)
+  res.redirect('/')
+      
+}
+
+app.get('/auth/google/success',authChecker,(req,res)=>{
+
+  res.send(`
+  <h1>hello ${req.user.displayName}</h1>
+  <a href="/logout">Logout</a>
+  `)
+   
 })
 
 
