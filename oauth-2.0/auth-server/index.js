@@ -21,13 +21,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", (req, res) => {
-  res.send(`<a href="/auth/google">Login with Google</a>`);
-});
+    res.send(`<a href="/auth/google">Login with Google</a>`);
+  }
+);
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope:
-  	[ 'email', 'profile' ] }
-));
+  passport.authenticate('google', { 
+    scope: [ 'email', 'profile' ],
+    
+  })
+);
  
 app.get( '/auth/google/callback',
     passport.authenticate( 'google', {
@@ -49,10 +52,12 @@ return res.redirect('/')
 })
 
 
- app.get('/logout',()=>{
+ app.get('/logout',(req,res)=>{
 
-    req.logout();
-    res.redirect('/')
+    req.logout(()=>{
+       res.redirect('/')  
+    });
+   
  })
 
 
