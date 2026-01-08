@@ -17,7 +17,9 @@ io.on("connection", (socket) => {
 
   socket.on("message", (data) => {
     console.log(data);
-    socket.broadcast.emit("message", data);
+    // io.emit("message", data); // sends data to user as well as user connected to the websocket
+      socket.broadcast.emit("message", data); // sends data to all user except the one who sent the data
+          // socket.emit("message", data);   // sends data back to user that sent data 
   });
 
   socket.on("disconnect", () => {
