@@ -14,41 +14,32 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const wss = new WebSocketServer({server})
-wss.on("connection",(ws)=>{ // 'ws' parameter represents individual client
-    clients.add(ws);
+const wss = new WebSocketServer({ server });
+wss.on("connection", (ws) => {
+  // 'ws' parameter represents individual client
+  clients.add(ws);
 
-  
   // Listen for messages from THIS client
-  ws.on("message",(data)=>{
-   
-    
+  ws.on("message", (data) => {
     // Echo the message back to the client
-sendMessages(data,ws);
-
+    sendMessages(data, ws);
   });
-  
+
   // Handle client disconnect
   ws.on("close", () => {
     console.log("User disconnected");
   });
-    
-})
+});
 
-
-function sendMessages(data,ws){
-  clients.forEach((client)=>{
-    if(client !== ws &&
-      client.readyState === WebSocket.OPEN
-    )
-    client.send(data.toString());
-  })
+function sendMessages(data, ws) {
+  clients.forEach((client) => {
+    if (client !== ws && client.readyState === WebSocket.OPEN)
+      client.send(data.toString());
+  });
 }
 
 sendMessages();
 
-server.listen(8080,()=>{
-    console.log("sever started on port 8080");
-    
-})
-
+server.listen(8080, () => {
+  console.log("sever started on port 8080");
+});
