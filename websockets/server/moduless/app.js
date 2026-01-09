@@ -7,7 +7,7 @@
         };
 
             ws.onmessage = (e) => {
-          console.log(e);
+    
           
        const ul =  document.querySelector('#messages')
       const li = document.createElement("li")
