@@ -2,23 +2,37 @@
 
         ws.onopen = () => {
             console.log("✅ WebSocket connected");
-            document.getElementById('status').textContent = "Connected!";
-            ws.send("Hello Server");
+           
             // Note: ws.emit() doesn't exist - use ws.send() instead
         };
 
-        ws.onmessage = (e) => {
-            console.log("📩 From server:", e.data);
-            const messagesDiv = document.getElementById('messages');
-            messagesDiv.innerHTML += `<p>From server: ${e.data}</p>`;
+            ws.onmessage = (e) => {
+          console.log(e);
+          
+       const ul =  document.querySelector('#messages')
+      const li = document.createElement("li")
+      li.textContent= ` ${e.data}` 
+      ul.appendChild(li);
+          
         };
 
         ws.onerror = (error) => {
             console.error("❌ WebSocket error:", error);
-            document.getElementById('status').textContent = "Error!";
+
         };
 
         ws.onclose = () => {
             console.log("🔌 WebSocket disconnected");
-            document.getElementById('status').textContent = "Disconnected";
+         
         };
+
+
+        document.querySelector(".send").addEventListener("click",()=>{
+
+          const cht = document.querySelector(".chat").value
+          console.log(cht);
+          
+          // Send the message to the server
+          ws.send(cht);
+  
+        })

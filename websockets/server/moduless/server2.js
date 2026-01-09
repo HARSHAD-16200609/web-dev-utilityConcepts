@@ -2,7 +2,7 @@
 import http from "http";
 import { WebSocketServer } from "ws";
 
-
+const clients = new Set();
 
 const server = http.createServer((req, res) => {
   if (req.url === "/" && req.method === "GET") {
@@ -16,13 +16,16 @@ const server = http.createServer((req, res) => {
 
 const wss = new WebSocketServer({server})
 wss.on("connection",(ws)=>{ // 'ws' parameter represents individual client
-  console.log("user connected");
+    clients.add(ws);
+
   
   // Listen for messages from THIS client
   ws.on("message",(data)=>{
-    console.log("Received:", data.toString());
+   
+    
     // Echo the message back to the client
-    ws.send(`Server received: ${data.toString()}`);
+sendMessages(data,ws);
+
   });
   
   // Handle client disconnect
@@ -33,8 +36,16 @@ wss.on("connection",(ws)=>{ // 'ws' parameter represents individual client
 })
 
 
+function sendMessages(data,ws){
+  clients.forEach((client)=>{
+    if(client !== ws &&
+      client.readyState === WebSocket.OPEN
+    )
+    client.send(data.toString());
+  })
+}
 
-
+sendMessages();
 
 server.listen(8080,()=>{
     console.log("sever started on port 8080");
