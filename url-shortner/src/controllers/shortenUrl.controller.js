@@ -31,6 +31,8 @@ async function getlongUrl(req,res){
 
 
     if(!url) res.status(500).json({sucess:false, message:"internal server error"})
+        url.clicks++;
+    url.save();
 
         res.redirect(url.longurl)
 }
