@@ -12,7 +12,7 @@ const UrlSchema = new Schema({
         type:String,
         required:true
     },
-    acessCount:{
+    accessCount:{
         type:Number,
         default:0
     }

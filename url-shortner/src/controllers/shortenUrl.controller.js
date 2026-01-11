@@ -30,9 +30,12 @@ async function getlongUrl(req,res){
     const url = await UrlModel.findOne({code});
 
 
-    if(!url) res.status(500).json({sucess:false, message:"internal server error"})
-        url.acessCount++;
-    url.save();
+    if(!url) res.status(404).json({sucess:false, message:"Url not found"}) 
+
+        console.log(url.accessCount);
+        
+        url.accessCount++;
+  await  url.save();
  
         res.redirect(url.longurl)
 }
