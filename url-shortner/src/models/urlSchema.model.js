@@ -5,7 +5,7 @@ import mongoose, {Schema} from "mongoose";
 
 const UrlSchema = new Schema({
     code:{
-        type:Number,
+        type:String,
         required:true
     },
     longurl:{
