@@ -1,41 +1,33 @@
-import express, { json } from "express"
-import dotenv from "dotenv"
-import mongoose from "mongoose"
-import urlRouter from "./routes/shortenUrl.route.js"
+import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import urlRouter from "./routes/shortenUrl.route.js";
 
-dotenv.config()
-
+dotenv.config();
 
 const app = express();
+app.use(express.json());
 
-app.use(express.json())
+let isConnected = false;
 
+async function connectdb(uri) {
+  if (isConnected) return;
 
-async function connectdb(connection_url) {
-  try {
-     if (mongoose.connection.readyState === 1) {
-      console.log("Database already connected");
-      return;
-    }
-    const connection_instance = await mongoose.connect(connection_url);
-    
-    console.log(
-      `DB connected sucessfully DB_HOST:${connection_instance.connection.host}`
-    );
-  } catch (err) {
-    console.log(`ERROR CONNECTING TO THE DATABASE : ${err}`);
-
-    process.exit(1);
-  }
+  await mongoose.connect(uri);
+  isConnected = true;
+  console.log("DB connected");
 }
 
-connectdb(process.env.MONGO_URI)
+await connectdb(process.env.MONGO_URI);
 
+process.once("SIGINT", async () => {
+  await mongoose.connection.close();
+  console.log("MongoDB disconnected");
+  process.exit(0);
+});
 
-app.use('/api/v1',urlRouter)
+app.use("/api/v1", urlRouter);
 
-
-app.listen(5000,()=>{
-    console.log("server listening on port 5000");
-    
-})
+app.listen(5000, () => {
+  console.log("Server listening on port 5000");
+});
