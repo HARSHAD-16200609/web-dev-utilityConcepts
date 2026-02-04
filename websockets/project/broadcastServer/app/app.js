@@ -6,6 +6,11 @@ export function startClient(url) {
   
   const ws = new WebSocket(url);
 
+  ws.on("error", (err) => {
+    console.error(`❌ Connection error: ${err.message}`);
+    process.exit(1);
+  });
+
   ws.on("open", () => {
     console.log("🟢 Connected to server");
     console.log("Type messages. Use /exit to quit.\n");
