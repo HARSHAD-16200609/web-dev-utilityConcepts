@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
   }
 );
 
+// get user permission 
 app.get('/auth/google',
   passport.authenticate('google', { 
     scope: [ 'email', 'profile' ],
@@ -32,7 +33,8 @@ app.get('/auth/google',
   })
 );
  
-app.get( '/auth/google/callback',
+// get to the homepage of site
+app.get('/auth/google/callback',
     passport.authenticate( 'google', {
         successRedirect: '/auth/google/success',
         failureRedirect: '/auth/google/failure'
