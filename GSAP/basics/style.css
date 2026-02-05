@@ -12,9 +12,18 @@ border-style: 100%;
 .box{
     margin:5vw;
     margin-top:5vw;
-
     width: 40px;
     height:40px;
     background-color: crimson;
 
+}
+h1{
+
+    color: red;
+    font-family: gillroy;
+   
+}
+
+.cont{
+     margin:5vw
 }
