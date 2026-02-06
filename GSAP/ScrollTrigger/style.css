@@ -40,7 +40,8 @@ align-items: center;
 }
 
 .box{
-    width: 25%;
+    padding: 10px;
+    width: 30%;
     height:25%;
     background-color: lightgoldenrodyellow;
 }
