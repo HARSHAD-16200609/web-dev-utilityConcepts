@@ -8,6 +8,8 @@ const args = process.argv.slice(2);
 
 const command = args[0];
 
+
+
 switch (command) {
   case "start":
     // For starting server: defaults to 8080, overrides with process.env.PORT (deployment), or uses arg[1] if it's a number

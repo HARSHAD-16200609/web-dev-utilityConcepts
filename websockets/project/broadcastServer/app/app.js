@@ -2,7 +2,7 @@ import WebSocket from "ws";
 import readline from "readline";
 
 export function startClient(url) {
-  console.log(url);
+  
   
   const ws = new WebSocket(url);
 

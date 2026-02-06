@@ -46,6 +46,24 @@ export function startServer(port = 8080) {
   });
 
   server.listen(port, () => {
-    console.log(`🟢 Server running on ws://localhost:${port}`);
+    // Enhanced logging for production debugging
+    console.log(`🟢 WebSocket server running on port ${port}`);
+    console.log(`📡 Ready to accept connections`);
+    
+    // Show different connection instructions based on environment
+    if (process.env.NODE_ENV === 'production') {
+      console.log(`🌐 External clients should connect to: wss://your-app.onrender.com`);
+    } else {
+      console.log(`🔧 Local clients can connect to: ws://localhost:${port}`);
+    }
+  });
+
+  // Graceful shutdown handling for production deployments
+  process.on('SIGTERM', () => {
+    console.log('⚠️  SIGTERM received, closing server gracefully...');
+    server.close(() => {
+      console.log('✅ Server closed');
+      process.exit(0);
+    });
   });
 }
