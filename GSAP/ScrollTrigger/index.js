@@ -1,34 +1,12 @@
-gsap.from(" #page1 .box",{
-    scale:0,
-    delay:1,
-    duration:2,
-    rotate:360,
-})
-
- // basic scroll trigger 
-
-// gsap.from(" #page2 .box",{
-//     scale:0,
-//     delay:1,
-//     duration:2,
-//     rotate:360,
-//     scrollTrigger:" #page2 .box",
-//     backgroundColor:"red"
-// })
-
-gsap.from(" #page2 h1",{
-    opacity:0,
-   y:25,
-    delay:1,
-    duration:1,
+gsap.to("#page2 h1",{
+    transform:"translateX(-120%)",
     scrollTrigger:{
-        trigger:"#page2 .box",
+        trigger:"#page2",
         scroller:"body", 
         markers:true,
-        start:"top 60%" // when this matche swith the stat of object animation is triggered 
-    },
-    
+        start:"top 0%" ,
+        scrub:2, // used to map the animation with the scroll
+        pin:true // whenver used the trigger should be on the parent of the element being animated 
+
+    }
 })
-
-
-
