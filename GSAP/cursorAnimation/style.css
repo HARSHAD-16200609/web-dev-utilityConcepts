@@ -1,0 +1,54 @@
+* {
+
+margin: 0;
+box-sizing: border-box;
+ padding: 0;
+
+}
+html,
+body {
+
+height:100%;
+width:100%;
+background-color: black;
+color:#fff;
+
+}
+.goku{
+    height: 100%;
+    width:100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width:18.9vw;
+    position: relative;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: aqua;
+}
+.cursor{
+    height:20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+}
+.mask{
+    top: 0;
+    background-color: transparent;
+    height: 100%;
+    width:100%;
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+}
